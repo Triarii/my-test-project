@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <groupId>my.test.project</groupId>
+    <artifactId>my-test-project</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <version.selenium>3.141.59</version.selenium>
+        <version.cucumber>4.8.1</version.cucumber>
+        <version.allure>2.13.2</version.allure>
+        <version.aspectj>1.9.5</version.aspectj>
+        <config.run.threads>1</config.run.threads>
+    </properties>
+
+    <build>
+        <testSourceDirectory>src/main/java</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <!--allure-->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version>
+                <configuration>
+                    <resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
+                    <properties>
+                        <allure.issues.tracker.pattern>http://example.com/%s</allure.issues.tracker.pattern>
+                    </properties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <!--parallel-run-->
+                    <parallel>methods</parallel>
+                    <threadCount>${config.run.threads}</threadCount>
+                    <perCoreThreadCount>false</perCoreThreadCount>
+                    <!--allure-->
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${version.aspectj}/aspectjweaver-${version.aspectj}.jar"
+                        -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
+                    </argLine>
+                    <systemPropertyVariables>
+                        <config.selenium.driver.chrome>drivers/chromedriver</config.selenium.driver.chrome>
+                        <config.selenium.local>true</config.selenium.local>
+                        <config.selenium.browser>chrome</config.selenium.browser>
+                        <config.selenium.browser.version></config.selenium.browser.version>
+                        <config.selenium.screen>1920x1080x24</config.selenium.screen>
+                        <config.selenium.vnc>true</config.selenium.vnc>
+                        <config.selenium.name>MyTestProject</config.selenium.name>
+                        <config.selenium.hub>http://localhost:4445/wd/hub</config.selenium.hub>
+                        <config.test.user.name>my-user-name</config.test.user.name>
+                        <config.test.user.password>mypass</config.test.user.password>
+                    </systemPropertyVariables>
+                </configuration>
+                <!--allure-->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${version.aspectj}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${version.selenium}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${version.cucumber}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${version.cucumber}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${version.cucumber}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber4-jvm</artifactId>
+            <version>${version.allure}</version>
+        </dependency>
+    </dependencies>
+
+</project>
