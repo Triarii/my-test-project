@@ -44,13 +44,13 @@ docker-compose up selenoid_cm_update
 
 # Запуск selenoid
 docker-compose up selenoid
-    
+
 # Запуск тестов
 mvn -Dconfig.run.threads=1 \
     -Dconfig.selenium.local=false \
     -Dconfig.selenium.browser=chrome \
     -Dconfig.test.user.name=username \
     -Dconfig.test.user.password=password \
-    test 
+    test
 ```
 
