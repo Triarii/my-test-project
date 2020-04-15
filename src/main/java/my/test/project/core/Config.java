@@ -2,7 +2,7 @@ package my.test.project.core;
 
 public class Config {
     public static final boolean WD_LOCAL = Boolean.parseBoolean(System.getProperty("config.selenium.local", "true"));
-    public static final String WD_DRIVER_CHROME = System.getProperty("config.selenium.driver.chrome", "chromedriver");
+    public static final String WD_DRIVER_CHROME = System.getProperty("config.selenium.driver.chrome", "drivers/chromedriver");
     public static final String WD_BROWSER = System.getProperty("config.selenium.browser", "chrome");
     public static final String WD_BROWSER_VERSION = System.getProperty("config.selenium.browser.version", "");
     public static final String WD_RESOLUTION = System.getProperty("config.selenium.screen", "1920x1080x24");
