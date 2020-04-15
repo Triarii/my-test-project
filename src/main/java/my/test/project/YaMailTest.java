@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/main/java/my/test/project/features",
-        glue = {"src/main/java/my/test/project/features/steps"},
+        glue = {"my.test.project.features.steps"},
         tags = {"@ya-mail"},
         strict = true,
         snippets = CucumberOptions.SnippetType.CAMELCASE
