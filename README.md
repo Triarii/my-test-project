@@ -17,7 +17,7 @@
 - [x] research_allure
 - [x] research_cucumber
 - [x] research_selenium
-- [] research_jenkins
+- [x] research_jenkins
 - [] research_report
 
 - [x] project_implementation_junit5
@@ -30,7 +30,7 @@
 - [x] project_maven_module_test
 - [x] project_maven_configure
 - [x] project_maven_build
-- [] project_ci_jenkins
+- [x] project_ci_jenkins
 - [] project_ci_report_allure
 - [] project_ci_report_mail
 
