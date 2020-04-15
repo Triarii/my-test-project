@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Tests') {
             steps {
-                sh 'mvn -B \
+                sh "mvn -B \
                     -Dmaven.repo.local=/root/.m2 \
                     -Dconfig.run.threads=${params.RUN_THREADS} \
                     -Dconfig.selenium.local=false \
@@ -23,7 +23,7 @@ pipeline {
                     -Dconfig.selenium.browser=${params.BROWSER} \
                     -Dconfig.test.user.name=${params.TEST_USER_NAME} \
                     -Dconfig.test.user.password=${params.TEST_USER_PASSWORD} \
-                test'
+                test"
             }
         }
     }
