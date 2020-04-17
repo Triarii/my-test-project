@@ -91,6 +91,9 @@
                         <config.selenium.vnc>true</config.selenium.vnc>
                         <config.selenium.name>MyTestProject</config.selenium.name>
                         <config.selenium.hub>http://localhost:4445/wd/hub</config.selenium.hub>
+                        <config.selenium.sleep.easy>5</config.selenium.sleep.easy>
+                        <config.selenium.sleep.medium>30</config.selenium.sleep.medium>
+                        <config.selenium.sleep.hard>60</config.selenium.sleep.hard>
                         <config.test.user.name>my-user-name</config.test.user.name>
                         <config.test.user.password>mypass</config.test.user.password>
                     </systemPropertyVariables>

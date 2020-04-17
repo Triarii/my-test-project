@@ -19,7 +19,7 @@ public class WebDriverManager {
 
     public void startWD() throws Throwable {
         this.driver = initDriver();
-        this.driverWait = new WebDriverWait(driver, 5);
+        this.driverWait = new WebDriverWait(driver, WD_SLEEP_EASY);
     }
 
     public void stopWD() {
@@ -60,9 +60,9 @@ public class WebDriverManager {
         String[] screen = WD_RESOLUTION.split("x");
         wd.manage().window().setSize(new Dimension(Integer.parseInt(screen[0]), Integer.parseInt(screen[1])));
 
-        wd.manage().timeouts().setScriptTimeout(50, TimeUnit.SECONDS);
-        wd.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
-        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        wd.manage().timeouts().setScriptTimeout(WD_SLEEP_HARD, TimeUnit.SECONDS);
+        wd.manage().timeouts().pageLoadTimeout(WD_SLEEP_HARD, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(WD_SLEEP_EASY, TimeUnit.SECONDS);
 
         return wd;
     }
