@@ -34,7 +34,7 @@
 - [x] project_ci_report_allure
 - [x] project_ci_report_mail
 
-- [] project_testing
+- [x] project_testing
 - [x] project_deploy_github
  
 ## Запуск
