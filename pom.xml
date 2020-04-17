@@ -15,7 +15,10 @@
         <version.selenium>3.141.59</version.selenium>
         <version.cucumber>4.8.1</version.cucumber>
         <version.allure>2.13.2</version.allure>
+        <version.allure-maven>2.10.0</version.allure-maven>
         <version.aspectj>1.9.5</version.aspectj>
+        <version.ant-junit>1.6.2</version.ant-junit>
+        <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
         <config.run.threads>1</config.run.threads>
     </properties>
 
@@ -31,11 +34,31 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <configuration>
+                    <tasks>
+                        <junitreport todir="target/surefire-reports">
+                            <fileset dir="target/surefire-reports">
+                                <include name="**/*.xml"/>
+                            </fileset>
+                            <report format="noframes" todir="target/surefire-reports"/>
+                        </junitreport>
+                    </tasks>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>ant</groupId>
+                        <artifactId>ant-junit</artifactId>
+                        <version>${version.ant-junit}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
             <!--allure-->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>2.10.0</version>
+                <version>${version.allure-maven}</version>
                 <configuration>
                     <resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
                     <properties>
@@ -46,8 +69,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>${version.maven-surefire-plugin}</version>
                 <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <!--parallel-run-->
                     <parallel>methods</parallel>
                     <threadCount>${config.run.threads}</threadCount>

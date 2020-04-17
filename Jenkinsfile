@@ -7,6 +7,7 @@ pipeline {
     }
     parameters {
         string(name: 'RUN_THREADS', defaultValue: '1', description: 'Parallel run')
+        string(name: 'RUN_REPORT_EMAIL', defaultValue: 'user', description: 'Run report email address')
         string(name: 'HUB', defaultValue: 'http://localhost:4445/wd/hub', description: 'Selenium grid hub')
         string(name: 'BROWSER', defaultValue: 'chrome', description: 'Selenium browser')
         string(name: 'TEST_USER_NAME', defaultValue: 'username', description: 'Test user name')
@@ -23,10 +24,11 @@ pipeline {
                     -Dconfig.selenium.browser=${params.BROWSER} \
                     -Dconfig.test.user.name=${params.TEST_USER_NAME} \
                     -Dconfig.test.user.password=${params.TEST_USER_PASSWORD} \
-                test"
+                test \
+                antrun:run"
             }
         }
-        stage('reports') {
+        stage('Allure-report') {
             steps {
                 script {
                     allure([
@@ -38,6 +40,18 @@ pipeline {
                     ])
                 }
             }
+        }
+    }
+    post {
+        always {
+            emailext to: "${params.RUN_REPORT_EMAIL}",
+                subject: "My-test-project: tests report ( ${env.BUILD_NUMBER} )",
+                mimeType: 'text/html',
+                body: "<h1>Job Build Links</h1>\n" +
+                    "<p><a href=\"${env.BUILD_URL}allure/\">Allure Report</a></p>\n" +
+                    "<p><a href=\"${env.BUILD_URL}console\">Console</a></p>\n" +
+                    '${FILE, path="target/surefire-reports/junit-noframes.html"}',
+                attachLog: true
         }
     }
 }
